@@ -47,6 +47,7 @@ const LandingPage = () => {
                         </button>
 
                         <button
+                        onClick={() => router.push("/signup")}
                             type="button"
                             className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-110 hover:shadow-2xl"
                         >
@@ -150,6 +151,7 @@ const LandingPage = () => {
                 </p>
                 <div className="flex justify-center gap-6">
                     <button
+                    onClick={() => router.push("/signup")}
                         type="button"
                         className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                     >
@@ -163,8 +165,22 @@ const LandingPage = () => {
                 <p className="text-lg mb-4">© 2025 ParthMind. All Rights Reserved.</p>
                 <div className="flex justify-center gap-6">
                     <a href="#about" className="hover:text-primary transition duration-300">About</a>
-                    <a href="#privacy" className="hover:text-primary transition duration-300">Privacy Policy</a>
-                    <a href="#terms" className="hover:text-primary transition duration-300">Terms of Service</a>
+                    
+                    <button
+                    onClick={() => router.push("/Privacy-policy")}
+                        type="button"
+                        className="hover:underline transition duration-300"
+                    >
+                     Privacy Policy
+                    </button>
+
+                    <button
+                    onClick={() => router.push("/terms")}
+                        type="button"
+                        className="hover:underline transition duration-300"
+                    >
+                     Terms of Service
+                    </button>
                 </div>
             </footer>
         </>
