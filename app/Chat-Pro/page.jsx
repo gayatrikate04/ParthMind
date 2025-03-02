@@ -71,7 +71,7 @@ const ChatBox = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-between ">
+    <div className="h-screen flex flex-col justify-between bg-gradient-to-br from-[#0C2E44] via-[#146C7A] to-[#1E908F]">
       {/* Navbar */}
       <div className="flex items-center justify-between bg-gradient-to-br from-[#1B3A4B] via-[#145C4B] to-[#1E7F5C] p-4 shadow-lg">
         <div className="flex items-center space-x-3">

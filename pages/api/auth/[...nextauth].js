@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
 
 export default NextAuth({
   providers: [
@@ -7,6 +8,17 @@ export default NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    async session({ session, user, token }) {
+      console.log("User signed in:", session.user);
+      return session;
+    }
+  }
+  
 });

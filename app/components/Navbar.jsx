@@ -8,13 +8,13 @@ const Navbar = () => {
   const router = useRouter(); // ✅ Initialize Next.js router correctly
 
   return (
-    <nav className="bg-black shadow-xl shadow-white text-white flex justify-between items-center px-4 md:h-16 rounded">
+    <nav className="bg-black shadow-xl border-none shadow-white  flex justify-between items-center px-4 md:h-16 rounded">
       <div className="flex items-center gap-2">
         <img className="rounded-full" src="logo.png" alt="Logo" width={50} height={50} />
-        <h1 className="text-2xl font-bold">ParthMind</h1>
+        <h1 className="text-2xl text-green-500 font-bold">ParthMind</h1>
       </div>
 
-      <div className="flex flex-col md:flex-row items-center md:justify-end md:space-x-4">
+      <div className="flex flex-col text-white md:flex-row items-center md:justify-end md:space-x-4">
         {/* ✅ Use router.push for navigation */}
         <button onClick={() => router.push('/signin')} className="text-sm md:text-base hover:underline">
           LogIn

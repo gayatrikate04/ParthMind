@@ -93,7 +93,7 @@ const LandingPage = () => {
             <div className="bg-black text-white py-16">
                 <div className="max-w-6xl mx-auto px-4 text-center">
                     <h2 className="text-4xl font-bold mb-8">Meet Your Mindful Companion</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
                         {[
                             {
                                 icon: "💬",
@@ -113,9 +113,9 @@ const LandingPage = () => {
                                     "Practical ideas to clear your mind and stay engaged.",
                             },
                             {
-                                icon: "🎨",
-                                title: "Image Generation",
-                                description: "Create calming images to relax your mind.",
+                                icon: "✨",
+                                title: "Affirmation Generator",
+                                description: "Provide daily positive affirmations to boost mental well-being and positivity.",
                             },
                             {
                                 icon: "🤖",
@@ -164,7 +164,13 @@ const LandingPage = () => {
             <footer className="bg-black py-8 text-center text-white">
                 <p className="text-lg mb-4">© 2025 ParthMind. All Rights Reserved.</p>
                 <div className="flex justify-center gap-6">
-                    <a href="#about" className="hover:text-primary transition duration-300">About</a>
+                <button
+                    onClick={() => router.push("/about")}
+                        type="button"
+                        className="hover:underline transition duration-300"
+                    >
+                     About
+                    </button>
                     
                     <button
                     onClick={() => router.push("/Privacy-policy")}

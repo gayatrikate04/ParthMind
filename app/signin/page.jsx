@@ -1,16 +1,18 @@
 "use client";
 import { useState } from "react";
-import { signIn, useSession } from "next-auth/react";  // Import NextAuth functions
+import { signIn } from "next-auth/react"; // Import NextAuth signIn function
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import Link from "next/link";
+import { useRouter } from "next/navigation"; 
 
 export default function Signup() {
-    const { data: session } = useSession();  // Get user session state
+    const router = useRouter();
     const [formData, setFormData] = useState({
         email: "",
         password: "",
         agreed: false,
     });
+    const [error, setError] = useState(""); // State for error message
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -18,6 +20,16 @@ export default function Signup() {
             ...formData,
             [name]: type === "checkbox" ? checked : value,
         });
+    };
+
+    const handleNext = (e) => {
+        e.preventDefault(); // Prevent form from reloading
+        if (!formData.email) {
+            setError("Please enter your email.");
+        } else {
+            setError(""); // Clear error if email is entered
+            router.push("/dashboard"); // Redirect to password page
+        }
     };
 
     return (
@@ -30,67 +42,63 @@ export default function Signup() {
                         <img className="w-16 h-16 bg-blue-400 rounded-full flex items-center justify-center shadow-xl" src="logo.png" alt="Logo" width={50} height={50} />
                     </div>
                 </div>
+                <h2 className="text-center text-2xl font-bold">Welcome back to ParthMind ✨</h2>
 
-                <h2 className="text-center text-2xl font-bold">Welcome back to ParthMind✨!</h2>
-
-                {session ? (  // If user is logged in, show welcome message
-                    <p className="text-center mt-4 text-green-400">
-                        Logged in as {session.user.email}
-                    </p>
-                ) : (
-                    <>
-                        <form>
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Email"
-                                className="input-box w-full h-10 mt-3 pl-3 bg-black bg-opacity-50 rounded-md"
-                                onChange={handleChange}
-                            />
-                            <input
+                <form>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        className="input-box w-full h-10 mt-3 pl-3 bg-black bg-opacity-50 rounded-md"
+                        onChange={handleChange}
+                    />
+                    
+                    <input
                                 type="password"
                                 name="password"
                                 placeholder="Password"
                                 className="input-box w-full h-10 mt-3 pl-3 bg-black bg-opacity-50 rounded-md"
                                 onChange={handleChange}
                             />
+                    {error && <p className="text-red-400 mt-2">{error}</p>} {/* Show error if email is missing */}
 
-                            <button
-                                type="submit"
-                                className="w-full mt-4 py-2 rounded-lg bg-gradient-to-r from-green-600 to-blue-700 hover:opacity-80 text-white font-bold shadow-lg"
-                            >
-                                Log In
-                            </button>
-                        </form>
+                    <button
+                        type="submit"
+                        onClick={handleNext} // Call function to check email
+                        className="w-full mt-4 py-2 rounded-lg bg-gradient-to-r from-green-600 to-blue-700 hover:opacity-80 text-white font-bold shadow-lg"
+                    >
+                        Log In
+                    </button>
+                </form>
 
-                        <p className="justify-center flex items-center mt-2">OR</p>
+                <p className="justify-center flex items-center mt-2">OR</p>
 
-                        <div className="flex flex-col justify-center mt-4 space-x-4 text-md">
-                            <button
-                                className="w-full flex items-center px-4 py-2 bg-white text-gray-700 font-semibold rounded-lg shadow-md hover:bg-gray-100 focus:outline-none"
-                                onClick={() => signIn("google")}  // Call Google Sign-In
-                            >
-                                <FaGoogle className="mr-2 text-red-500" size={20} />
-                                Login with Google
-                            </button>
+                <div className="flex flex-col justify-center mt-4 space-y-3 text-md">
+                    {/* Google OAuth Signup */}
+                    <button
+                        className="w-full flex items-center px-4 py-2 bg-white text-gray-700 font-semibold rounded-lg shadow-md hover:bg-gray-100 focus:outline-none"
+                        onClick={() => signIn("google", { callbackUrl: "/" })} // Redirect after successful login
+                    >
+                        <FaGoogle className="mr-2 text-red-500" size={20} />
+                        Sign Up with Google
+                    </button>
 
-                            <button
-                                className="w-full flex items-center justify-center px-4 py-2 mt-3 bg-gray-900 text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 focus:outline-none"
-                                onClick={() => signIn("github")}  // Call GitHub Sign-In
-                            >
-                                <FaGithub className="mr-2" size={20} />
-                                Login with GitHub
-                            </button>
-                        </div>
+                    {/* GitHub OAuth Signup */}
+                    <button
+                        className="w-full flex items-center px-4 py-2 bg-gray-900 text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 focus:outline-none"
+                        onClick={() => signIn("github", { callbackUrl: "/" })}
+                    >
+                        <FaGithub className="mr-2" size={20} />
+                        Sign Up with GitHub
+                    </button>
+                </div>
 
-                        <div className="flex flex-row items-center mt-5 justify-center">
-                            <p>If not registered yet? then</p>
-                            <Link href="/signup" className="text-blue-400 ml-2 hover:underline">
-                                Register
-                            </Link>
-                        </div>
-                    </>
-                )}
+                <div className="flex flex-row items-center mt-5 justify-center">
+                    <p>Already registered?</p>
+                    <Link href="/signup" className="text-blue-400 ml-2 hover:underline">
+                        signup
+                    </Link>
+                </div>
             </div>
         </div>
     );
